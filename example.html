@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Bootstrap Slider Knockout Binding Example</title>
+    <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js'></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type='text/javascript' src="lib/bootstrap-slider.min.js"></script>
+    <script type='text/javascript' src="bootstrap-slider-knockout-binding.js"></script>
+
+
+    <link rel="stylesheet" href="lib/bootstrap-slider.min.css"/>
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+        }
+
+        .starter-section {
+            padding: 40px 15px;
+            text-align: center;
+        }
+
+        .slider {
+            margin-top: 30px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            function viewModel() {
+                this.selectedValue = ko.observable(5);
+                this.selectedValue2 = ko.observable(6);
+            };
+
+            ko.applyBindings(new viewModel());
+
+        });
+    </script>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="starter-section">
+        <h1>Bootstrap Slider Knockout Binding Example</h1>
+
+        <p class="lead">This is an example for using a Knockout binding on the Bootstrap Slider: <a
+                href="https://github.com/seiyria/bootstrap-slider">https://github.com/seiyria/bootstrap-slider</a>.</p>
+    </div>
+    <p>The Knockout binding allows you to use an observable as a value for the slider and to customize the options
+        of the slider via knockout params.</p>
+
+    <h1>Simple example with default options</h1>
+
+    <p>
+        <code>&lt;input type="text" class="slider form-control" data-bind="sliderValue: selectedValue"/&gt;</code><br/>
+        <input type="text" class="slider form-control" data-bind="sliderValue: selectedValue"/>
+    </p>
+
+    <p>Selected value: <b data-bind="text: selectedValue"></b></p>
+
+    <h1>Example with options</h1>
+
+    <p>
+        <code>&lt;input type="text" class="slider form-control"
+            data-bind="sliderValue: {value: selectedValue, min:0, max: 22, step: 2, tooltip: 'always'}"/&gt;</code><br/>
+
+        <input type="text" class="slider form-control"
+               data-bind="sliderValue: {value: selectedValue2, min:0, max: 22, step: 2, tooltip: 'always'}"/>
+    </p>
+
+    <p>Selected value: <b data-bind="text: selectedValue2"></b></p>
+
+
+</div>
+<!-- /.container -->
+
+
+</body>
+</html>
