@@ -33,6 +33,6 @@ ko.bindingHandlers.sliderValue = {
 		else
 			valueObservable = modelValue['value'];
 
-		$(element).slider('setValue', valueObservable());
+		$(element).slider('setValue', parseFloat(valueObservable()));
 	}
 };
