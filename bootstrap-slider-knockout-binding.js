@@ -14,14 +14,28 @@ ko.bindingHandlers.sliderValue = {
 		}
 		else {
 			valueObservable = params['value'];
-			// Replace the 'value' field in the options object with the actual value
-			params['value'] = ko.unwrap(valueObservable);
-			$(element).slider(params);
+			if (!Array.isArray(valueObservable)) {
+				// Replace the 'value' field in the options object with the actual value
+				params['value'] = ko.unwrap(valueObservable);
+				$(element).slider(params);
+			} 
+			else {
+				valueObservable = [params['value'][0], params['value'][1]];
+				params['value'][0] = ko.unwrap(valueObservable[0]);
+				params['value'][1] = ko.unwrap(valueObservable[1]);
+				$(element).slider(params);
+			}
 		}
 
 		// Make sure we update the observable when changing the slider value
 		$(element).on('slide', function (ev) {
-			valueObservable(ev.value);
+			if (!Array.isArray(valueObservable)) {
+				valueObservable(ev.value);
+			} 
+			else {
+				valueObservable[0](ev.value[0]);
+				valueObservable[1](ev.value[1]);
+			}
 		});
 
 	},
@@ -30,9 +44,14 @@ ko.bindingHandlers.sliderValue = {
 		var valueObservable;
 		if (ko.isObservable(modelValue))
 			valueObservable = modelValue;
-		else
+		else 
 			valueObservable = modelValue['value'];
 
-		$(element).slider('setValue', parseFloat(valueObservable()));
+		if (!Array.isArray(valueObservable)) {
+			$(element).slider('setValue', parseFloat(valueObservable()));
+		} 
+		else {
+			$(element).slider('setValue', [parseFloat(valueObservable[0]()),parseFloat(valueObservable[1]())]);
+		}
 	}
 };
