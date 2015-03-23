@@ -18,26 +18,35 @@
         body {
             padding-top: 50px;
         }
-
         .starter-section {
             padding: 40px 15px;
             text-align: center;
         }
-
         .slider {
             margin-top: 30px;
         }
+		.slider-track-high {
+			background: red;
+		}
+		
+		.slider-track-low {
+			background: green;
+		}
+		
+		.slider-selection {
+			background: yellow;
+		}
     </style>
+
     <script type="text/javascript">
         $(document).ready(function () {
-
             function viewModel() {
                 this.selectedValue = ko.observable(5);
                 this.selectedValue2 = ko.observable(6);
-            };
-
+				this.highRiskValue = ko.observable(80);
+				this.lowRiskValue = ko.observable(20);
+           };
             ko.applyBindings(new viewModel());
-
         });
     </script>
 </head>
@@ -75,7 +84,14 @@
 
     <p>Selected value: <b data-bind="text: selectedValue2"></b></p>
 
+  <h1>Example with dual sliders</h1>
+    <p><code>&lt;input type=&quot;text&quot; class=&quot;slider form-control&quot;
+data-bind=&quot;sliderValue: {value: [lowRiskValue, highRiskValue], min:0, max: 100, step: 1, tooltip: 'always'}&quot;/&gt;</code><br/>
 
+0<input type="text" class="slider form-control" data-bind="sliderValue: {value: [lowRiskValue, highRiskValue], min:0, max: 100, step: 1, tooltip: 'always'}"/>100
+    <p>Selected low value: <b data-bind="text: lowRiskValue"></b></p>
+    <p>Selected low value: <b data-bind="text: highRiskValue"></b></p>
+</p>
 </div>
 <!-- /.container -->
 
