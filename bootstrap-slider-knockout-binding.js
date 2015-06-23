@@ -37,6 +37,12 @@ ko.bindingHandlers.sliderValue = {
 				valueObservable[1](ev.value[1]);
 			}
 		});
+		
+		// Clean up
+		ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+			$(element).slider('destroy');
+			$(element).off('slide');
+		});
 
 	},
 	update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
