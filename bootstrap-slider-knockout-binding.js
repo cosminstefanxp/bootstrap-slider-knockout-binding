@@ -36,6 +36,14 @@ ko.bindingHandlers.sliderValue = {
 				valueObservable[0](ev.value[0]);
 				valueObservable[1](ev.value[1]);
 			}
+		}).on('change', function (ev) {
+			if (!Array.isArray(valueObservable)) {
+				valueObservable(ev.value.newValue)
+			}
+			else {
+				valueObservable[0](ev.value.newValue[0]);
+				valueObservable[1](ev.value.newValue[1]);
+			}
 		});
 
 		// Clean up
