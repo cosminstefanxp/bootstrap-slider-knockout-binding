@@ -15,9 +15,11 @@ ko.bindingHandlers.sliderValue = {
 		else {
 			valueObservable = params['value'];
 			if (!Array.isArray(valueObservable)) {
-				// Replace the 'value' field in the options object with the actual value
-				params['value'] = ko.unwrap(valueObservable);
-				$(element).slider(params);
+				// Replace the 'value' field in the options object for slider with the actual value
+				// Keep observable around in params object
+				var unwrappedParams = JSON.parse(JSON.stringify(params));
+				unwrappedParams['value'] = ko.unwrap(valueObservable);
+				$(element).slider(unwrappedParams);
 			}
 			else {
 				valueObservable = [params['value'][0], params['value'][1]];
@@ -38,11 +40,11 @@ ko.bindingHandlers.sliderValue = {
 			}
 		}).on('change', function (ev) {
 			if (!Array.isArray(valueObservable)) {
-				valueObservable(ev.value.newValue)
+				valueObservable(ev.value['newValue'])
 			}
 			else {
-				valueObservable[0](ev.value.newValue[0]);
-				valueObservable[1](ev.value.newValue[1]);
+				valueObservable[0](ev.value['newValue'][0]);
+				valueObservable[1](ev.value['newValue'][1]);
 			}
 		});
 
